@@ -1,16 +1,35 @@
-from PIL import Image, ImageFilter
+import PIL.Image
 from PIL.ImageFilter import (
      BLUR, CONTOUR, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
      EMBOSS, FIND_EDGES, SHARPEN
 )
 import sys
+import os
 
 class Image:       
-    def __init__():
+    def __init__(self):
+        print("Welcome to my ImageModifier Program!")
+        print(40*'=')
+        self.userDirectory = input("Enter the name of the image file you wish to modify\n")
+        img = PIL.Image.open(self.userDirectory)
+        img.thumbnail((400,400))
+        img.save('thumbnail.jpg')
+        img.show()
+
+        self.ModOptions = str(['RESIZE', 'BLUR', 'CONTOUR', 'EDGE_ENHANCE', 'EDGE_ENHANCE_MORE', 'EMBOSS', 'FIND_EDGES', 'SHARPEN']).lower()
+        print(self.ModOptions)
+        self.Options()
+    
+    # def Options(self):
+    #     print("The modification options are as follows:\n " + self.ModOptions)
+    #     # while True:
+    #     #     try:
+    #     #         self.selectOpt= input("What kind of modification would you like?\n").lower()
+    #     #         if self.selectOpt == 'blur':
         
+    # def OptBlur(self):
 
-
-print(Test)
+Image()
 
 
 
