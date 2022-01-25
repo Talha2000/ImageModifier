@@ -1,7 +1,9 @@
+from multiprocessing.shared_memory import ShareableList
+from xml.etree.ElementTree import PI
 import PIL.Image
 from PIL.ImageFilter import (
-     BLUR, CONTOUR, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
-     EMBOSS, FIND_EDGES, SHARPEN
+     BLUR, CONTOUR, DETAIL, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
+     EMBOSS, FIND_EDGES, SHARPEN, SMOOTH
 )
 import sys
 import os
@@ -20,7 +22,6 @@ class Image:
         print("The modification options are as follows:\n " + self.ModOptions + "\n\n")
         while True:
             self.selectOpt = input("Choose an Option to apply to the image:\n ")
-
             if self.selectOpt == "x":
                 break
             if self.selectOpt == 'resize':
@@ -29,46 +30,79 @@ class Image:
                 self.OptBlur()
             elif self.selectOpt == 'contour':
                 self.OptContour()
-            elif self.selectOpt == 'Edge_enhance':
+            elif self.selectOpt == 'detail':
+                self.Optdetail()
+            elif self.selectOpt == 'edge_enhance':
                 self.OptEdge1()
-            elif self.selectOpt == 'Edge_enhance_more':
+            elif self.selectOpt == 'edge_enhance_more':
                 self.OptEdge2()
             elif self.selectOpt == 'emboss':
                 self.OptEmboss()
             elif self.selectOpt== 'find_edges':
-                self.OptEdge()
-            elif self.selectOpt == 'Sharpen':
+                self.Opt_FindEdges()
+            elif self.selectOpt == 'sharpen':
                 self.OptSharp()
 
     def OptResize(self):
+        imgSizeA, imgSizeB = [int(x) for x in input("Enter the size you would like to resize to. For Example, '100,100'").split(',')]
         img = PIL.Image.open(self.userDirectory)
-        img.thumbnail((100,100))
+        img.thumbnail((imgSizeA, imgSizeB))
         img.save('test.jpg')
-        return img.show()
+        img.show()
 
     def OptBlur(self):
-        pass
+        # imgSizeA, imgSizeB = [int(x) for x in input("Enter the size you would like to resize to. For Example, '100,100'").split(',')]
+        # img = PIL.Image.open(self.userDirectory)
+        # img.thumbnail((imgSizeA, imgSizeB))
+        # img.save('test.jpg')
+        # img.show()
+        # print("Blur")
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(BLUR)
+        newImg.save('testBlur.jpg')
+        newImg.show()
 
     def OptContour(self):
-        pass
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(CONTOUR)
+        newImg.save('contourTest.jpg')
+        newImg.show()
+
+    def Optdetail(self):
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(DETAIL)
+        newImg.save('detailTest.jpg')
+        newImg.show()
 
     def OptEdge1(self):
-        pass
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(EDGE_ENHANCE)
+        newImg.save('edge1_Test.jpg')
+        newImg.show()
 
     def OptEdge2(self):
-        pass
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(EDGE_ENHANCE_MORE)
+        newImg.save('edge2_Test.jpg')
+        newImg.show()
 
     def OptEmboss(self):
-        pass
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(EMBOSS)
+        newImg.save('embossTest.jpg')
+        newImg.show()
 
-    def OptBlur(self):
-        pass
-
-    def OptEdge(self):
-        pass
+    def Opt_FindEdges(self):
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(FIND_EDGES)
+        newImg.save('FindEdges_Test.jpg')
+        newImg.show()
 
     def OptSharp(self):
-        pass
+        img = PIL.Image.open(self.userDirectory)
+        newImg = img.filter(SHARPEN)
+        newImg.save('SharpTest.jpg')
+        newImg.show()
 
 
 Image()
