@@ -14,7 +14,7 @@ class Image:
         print("Welcome to my ImageModifier Program!")
         print(40*'=')
         self.userDirectory = input("Enter the name of the image file you wish to modify\n")
-        self.ModOptions = str(['RESIZE', 'BLUR', 'CONTOUR', 'EDGE_ENHANCE', 'EDGE_ENHANCE_MORE', 'EMBOSS', 'FIND_EDGES', 'SHARPEN']).lower()
+        self.ModOptions = str(['ROTATE', 'RESIZE', 'BLUR', 'CONTOUR', 'EDGE_ENHANCE', 'EDGE_ENHANCE_MORE', 'EMBOSS', 'FIND_EDGES', 'SHARPEN']).lower()
         self.Options()
     
     def Options(self):
@@ -24,7 +24,11 @@ class Image:
             self.selectOpt = input("Choose an Option to apply to the image:\n ")
             if self.selectOpt == "x":
                 break
-            if self.selectOpt == 'resize':
+            if self.selectOpt == 'rotate':
+                self.RotateImage()
+            # elif self.selectOpt == 'undo':
+            #     self.ImageUndo()
+            elif self.selectOpt == 'resize':
                 self.OptResize()
             elif self.selectOpt == 'blur':
                 self.OptBlur()
@@ -43,6 +47,17 @@ class Image:
             elif self.selectOpt == 'sharpen':
                 self.OptSharp()
 
+    def RotateImage(self):
+        val = float(input("Enter the value of rotation: "))
+        # img1 = PIL.Image.open(self.userDirectory)
+        # img1.save("rotateTest.jpg")
+        img = PIL.Image.open(self.userDirectory)
+        img = img.rotate(val)
+        img.save("rotate.jpg")
+        img.show()
+    
+    # def ImageUndo(self, img1):
+    #     img1.show()
     def OptResize(self):
         imgSizeA, imgSizeB = [int(x) for x in input("Enter the size you would like to resize to. For Example, '100,100'").split(',')]
         img = PIL.Image.open(self.userDirectory)
