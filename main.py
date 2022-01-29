@@ -26,8 +26,6 @@ class Image:
                 break
             if self.selectOpt == 'rotate':
                 self.RotateImage()
-            # elif self.selectOpt == 'undo':
-            #     self.ImageUndo()
             elif self.selectOpt == 'resize':
                 self.OptResize()
             elif self.selectOpt == 'blur':
